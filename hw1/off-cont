@@ -1,0 +1,54 @@
+==== Thu 15 Sep 2022 10:00:01 AM EDT ====
+traceroute to 84.200.69.80 (84.200.69.80), 30 hops max, 60 byte packets
+ 1  home.router (172.16.0.1)  0.455 ms  0.454 ms  0.380 ms
+ 2  192.168.0.1 (192.168.0.1)  2.570 ms  2.786 ms  3.082 ms
+ 3  10.16.88.1 (10.16.88.1)  9.213 ms  14.177 ms  13.880 ms
+ 4  100.118.74.72 (100.118.74.72)  14.670 ms  15.003 ms  15.795 ms
+ 5  100.120.124.6 (100.120.124.6)  15.075 ms  14.442 ms  14.712 ms
+ 6  ashbbprj01-ae2.rd.as.cox.net (68.1.0.242)  18.728 ms  17.515 ms  17.163 ms
+ 7  ash-b2-link.ip.twelve99.net (213.248.76.24)  17.748 ms  23.108 ms  18.915 ms
+ 8  rest-bb1-link.ip.twelve99.net (62.115.123.122)  16.031 ms  19.440 ms ash-bb2-link.ip.twelve99.net (62.115.123.124)  19.116 ms
+ 9  prs-bb1-link.ip.twelve99.net (62.115.112.243)  101.585 ms  101.993 ms  102.530 ms
+10  ffm-bb2-link.ip.twelve99.net (62.115.114.99)  111.176 ms ffm-bb1-link.ip.twelve99.net (62.115.123.12)  110.583 ms  114.443 ms
+11  * * *
+12  telia.edge2.fra3.de.first-colo.net (62.115.161.107)  107.241 ms  110.568 ms  107.633 ms
+13  ae1.3907.ce3.fra4.de.first-colo.net (212.224.104.15)  103.793 ms  106.816 ms  106.648 ms
+14  84.200.69.80 (84.200.69.80)  103.593 ms  108.239 ms *
+========
+
+==== Thu 15 Sep 2022 12:00:01 PM EDT ====
+traceroute to 84.200.69.80 (84.200.69.80), 30 hops max, 60 byte packets
+ 1  home.router (172.16.0.1)  0.864 ms  0.808 ms  0.770 ms
+ 2  192.168.0.1 (192.168.0.1)  2.430 ms  2.509 ms  2.056 ms
+ 3  10.16.88.1 (10.16.88.1)  11.714 ms  11.567 ms  11.733 ms
+ 4  100.118.74.72 (100.118.74.72)  12.309 ms  12.358 ms  12.422 ms
+ 5  100.120.124.6 (100.120.124.6)  22.528 ms  22.636 ms  22.263 ms
+ 6  ashbbprj01-ae2.rd.as.cox.net (68.1.0.242)  17.979 ms  15.804 ms  15.685 ms
+ 7  ash-b2-link.ip.twelve99.net (213.248.76.24)  15.332 ms  19.333 ms  19.527 ms
+ 8  ash-bb2-link.ip.twelve99.net (62.115.123.124)  14.571 ms rest-bb1-link.ip.twelve99.net (62.115.123.122)  17.589 ms ash-bb2-link.ip.twelve99.net (62.115.123.124)  17.583 ms
+ 9  prs-bb2-link.ip.twelve99.net (62.115.122.158)  96.620 ms prs-bb1-link.ip.twelve99.net (62.115.112.243)  99.452 ms prs-bb2-link.ip.twelve99.net (62.115.122.158)  95.951 ms
+10  ffm-bb1-link.ip.twelve99.net (62.115.123.12)  110.540 ms ffm-bb2-link.ip.twelve99.net (62.115.122.139)  107.380 ms  107.163 ms
+11  * * *
+12  telia.edge2.fra3.de.first-colo.net (62.115.161.107)  106.153 ms  110.452 ms  110.350 ms
+13  ae1.3907.ce3.fra4.de.first-colo.net (212.224.104.15)  122.613 ms  112.526 ms  121.062 ms
+14  84.200.69.80 (84.200.69.80)  104.792 ms *  104.276 ms
+========
+
+==== Thu 15 Sep 2022 06:00:01 PM EDT ====
+traceroute to 84.200.69.80 (84.200.69.80), 30 hops max, 60 byte packets
+ 1  home.router (172.16.0.1)  0.554 ms  0.491 ms  0.589 ms
+ 2  192.168.0.1 (192.168.0.1)  2.702 ms  2.917 ms  2.401 ms
+ 3  10.16.88.1 (10.16.88.1)  12.797 ms  14.725 ms  9.488 ms
+ 4  100.118.74.72 (100.118.74.72)  16.407 ms  15.629 ms  15.907 ms
+ 5  100.120.124.6 (100.120.124.6)  14.897 ms  29.732 ms  29.870 ms
+ 6  ashbbprj01-ae2.rd.as.cox.net (68.1.0.242)  19.350 ms  17.918 ms  18.198 ms
+ 7  ash-b2-link.ip.twelve99.net (213.248.76.24)  18.497 ms  23.050 ms  12.889 ms
+ 8  ash-bb2-link.ip.twelve99.net (62.115.123.124)  17.561 ms rest-bb1-link.ip.twelve99.net (62.115.123.122)  18.018 ms ash-bb2-link.ip.twelve99.net (62.115.123.124)  17.326 ms
+ 9  prs-bb1-link.ip.twelve99.net (62.115.112.243)  99.315 ms prs-bb2-link.ip.twelve99.net (62.115.122.158)  95.187 ms prs-bb1-link.ip.twelve99.net (62.115.112.243)  99.505 ms
+10  * ffm-bb2-link.ip.twelve99.net (62.115.122.139)  107.224 ms ffm-bb1-link.ip.twelve99.net (62.115.123.12)  106.868 ms
+11  * * *
+12  telia.edge2.fra3.de.first-colo.net (62.115.161.107)  112.497 ms  104.493 ms  104.976 ms
+13  ae1.3907.ce3.fra4.de.first-colo.net (212.224.104.15)  107.678 ms  106.688 ms  107.028 ms
+14  84.200.69.80 (84.200.69.80)  103.541 ms  105.697 ms  104.469 ms
+========
+
