@@ -19,10 +19,8 @@ while True:
 
     try:
         """
-            Receive the request from the client. The call to `split` tokenizes
-            the message, using whitespace as a delimeter. The filename of the 
-            requested file is the second element in the resulting list, at index
-            [1].
+            Receive the request from the client. The next few lines parse the
+            filename of the requested file.
         """
         message = connectionSocket.recv(1024).decode() # receive request
         filename = message.split()[1] # strip out filename
@@ -53,7 +51,18 @@ while True:
         # send response message for file not found
         # fill in start
         # send 404 message
-        connectionSocket.send("HTTP/1.0 404 Not Found\r\n".encode())
+        """
+            Send a 404 response. Initially, this was just a 404 header, but
+            I decided I liked an actual 404 page better. This sequence mirrors
+            the file tranfer from the `try` section above.
+        """
+        connectionSocket.send("HTTP/1.0 404 Not Found\r\n\r\n".encode())
+        f = open("notfound.html")
+        outputdata = f.read()
+
+        for i in range(0, len(outputdata)): # this loop sends one byte at a time
+            connectionSocket.send(outputdata[i].encode())
+        connectionSocket.send("\r\n".encode()) # signal end of file
         # fill in end
 
         # close client socket
