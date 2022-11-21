@@ -30,6 +30,7 @@ int main(int argc, char **argv)
     struct addrinfo hints, *servinfo, *p;
     char buf[MAXBUFLENGTH];
     struct sockaddr_storage their_addr;
+    socklen_t addr_len;
     char s[INET6_ADDRSTRLEN];
 
     memset(&hints, 0, sizeof hints);
@@ -37,20 +38,20 @@ int main(int argc, char **argv)
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE;
 
-    if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
+    if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
 
     for (p = servinfo; p != NULL; p = p->ai_next) {
         if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) < 0) {
-            perror("client: socket");
+            perror("listener: socket");
             continue;
         }
 
-        if (connect(sockfd, p->ai_addr, p->ai_addrlen) < 0) {
+        if (bind(sockfd, p->ai_addr, p->ai_addrlen) < 0) {
             close(sockfd);
-            perror("client: connect");
+            perror("listener: connect");
             continue;
         }
 
@@ -58,23 +59,31 @@ int main(int argc, char **argv)
     }
 
     if (p == NULL) {
-        fprintf(stderr, "client: failed to connect\n");
+        fprintf(stderr, "listener: failed to connect\n");
         return 2;
     }
 
-    inet_ntop(p->ai_family, get_in_addr((struct sockaddr*)p->ai_addr), s, sizeof s);
-    printf("client: connecting to %s\n", s);
-
     freeaddrinfo(servinfo);
 
-    if ((numbytes = recv(sockfd, buf, MAXBUFLENGTH-1, 0)) < 0 ) {
+    printf("listener; waiting to recv from...\n");
+
+    addr_len = sizeof their_addr;
+
+    if ((numbytes = recvfrom(sockfd, buf, MAXBUFLENGTH-1, 0,
+        (struct sockaddr*) &their_addr, &addr_len)) == -1) {
         perror("recv");
         exit(1);
     }
 
+    printf("listener: got packet from %s\n", 
+        inet_ntop(their_addr.ss_family, 
+            get_in_addr((struct sockaddr *)&their_addr), 
+            s, sizeof s));
+
+    printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
 
-    printf("client: received '%s'\n", buf);
+    printf("listner: packet contains \"%s\"\n", buf);
 
     close(sockfd);
 
