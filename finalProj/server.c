@@ -107,12 +107,17 @@ int main(void) {
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
         printf("server: got connection from %s\n", s);
 
-        if (!fork()) { /* this is the child process */
-            close(sockfd);
-            if (send(new_fd, "Hello, world!", 13, 0) == -1) perror("send");
-            close(new_fd);
-            exit(0);
-        }
+        // if (!fork()) { /* this is the child process */
+        //     close(sockfd);
+        //     if (send(new_fd, "Hello, world!", 13, 0) == -1) perror("send");
+        //     close(new_fd);
+        //     exit(0);
+        // }
+
+        /* TODO: change to send one letter at a time */
+        if (send(new_fd, "Hello, world!", 13, 0) == -1) 
+            perror("send");
+
         close(new_fd);
     }
 
