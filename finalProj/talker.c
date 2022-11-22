@@ -16,13 +16,33 @@
 
 #define PORT "56712"
 
-int main(int argc, char **argv) {
-    int sockfd;
-    struct addrinfo hints, *servinfo, *p;
-    int rv, numbytes;
+int sockfd;
+struct addrinfo hints, *servinfo, *p;
+int rv, numbytes;
 
-    if (argc != 3) {
-        fprintf(stderr, "usage: talker hostname message\n");
+char *msg_out = "Testing rdt1.0 protocol\0";
+
+char make_pkt(char data) {
+    return data;
+};
+
+void udt_send(char packet) {
+    if ((numbytes = sendto(sockfd, &packet, 1, 0, 
+            p->ai_addr, p->ai_addrlen)) == -1) {
+        perror("talker: sendto");
+        exit(1);
+    }
+};
+
+void rdt_send(char data) {
+    char packet = make_pkt(data);
+    udt_send(packet);
+};
+
+int main(int argc, char **argv) {
+
+    if (argc != 2) {
+        fprintf(stderr, "usage: talker hostname\n");
         exit(1);
     }
 
@@ -41,7 +61,6 @@ int main(int argc, char **argv) {
             perror("talker: socket");
             continue;
         }
-
         break;
     }
 
@@ -50,10 +69,14 @@ int main(int argc, char **argv) {
         return 2;
     }
 
-    if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0, p->ai_addr, p->ai_addrlen)) == -1) {
-        perror("talker: sendto");
-        exit(1);
+    printf("sending...");
+    for (int i = 0; i < strlen(msg_out); i++) {
+        rdt_send(msg_out[i]);
+        printf("%c ", (char) msg_out[i]);
+        sleep(1);
     }
+    printf("\n");
+    
 
     freeaddrinfo(servinfo);
 

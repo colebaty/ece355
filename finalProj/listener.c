@@ -16,6 +16,13 @@
 
 #define MAXBUFLENGTH 100
 
+int sockfd, numbytes, rv;
+struct addrinfo hints, *servinfo, *p;
+char buf[MAXBUFLENGTH];
+struct sockaddr_storage their_addr;
+socklen_t addr_len;
+char s[INET6_ADDRSTRLEN];
+
 void *get_in_addr(struct sockaddr *sa) {
     if (sa->sa_family == AF_INET) {
         return &(((struct sockaddr_in*)sa)->sin_addr);
@@ -26,13 +33,6 @@ void *get_in_addr(struct sockaddr *sa) {
 
 int main(int argc, char **argv)
 {
-    int sockfd, numbytes, rv;
-    struct addrinfo hints, *servinfo, *p;
-    char buf[MAXBUFLENGTH];
-    struct sockaddr_storage their_addr;
-    socklen_t addr_len;
-    char s[INET6_ADDRSTRLEN];
-
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
     freeaddrinfo(servinfo);
 
-    printf("listener; waiting to recv from...\n");
+    printf("listener: waiting to recv from...\n");
 
     addr_len = sizeof their_addr;
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
     printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
 
-    printf("listner: packet contains \"%s\"\n", buf);
+    printf("lisetner: packet contains \"%s\"\n", buf);
 
     close(sockfd);
 
