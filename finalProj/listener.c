@@ -83,7 +83,7 @@ int main(int argc, char **argv)
     printf("listener: packet is %d bytes long\n", numbytes);
     buf[numbytes] = '\0';
 
-    printf("lisetner: packet contains \"%s\"\n", buf);
+    printf("listener: packet contains \"%s\"\n", buf);
 
     close(sockfd);
 
