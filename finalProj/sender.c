@@ -18,7 +18,7 @@
 
 int sockfd;
 struct addrinfo hints, *servinfo, *p;
-int rv, numbytes;
+int rv, numbytes, totalbytes = 0;
 
 char *msg_out = "Testing rdt1.0 protocol\0";
 
@@ -32,6 +32,8 @@ void udt_send(char packet) {
         perror("talker: sendto");
         exit(1);
     }
+
+    totalbytes++;
 };
 
 void rdt_send(char data) {
@@ -80,7 +82,9 @@ int main(int argc, char **argv) {
 
     freeaddrinfo(servinfo);
 
-    printf("talker: sent %d bytes to %s\n", numbytes, argv[1]);
+    printf("talker: sent %d bytes to %s\n", totalbytes, argv[1]);
+    /* send 0-length packet to terminate connection */
+    sendto(sockfd, "", 0, 0, p->ai_addr, p->ai_addrlen);
     close(sockfd);
 
     return 0;

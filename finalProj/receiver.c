@@ -18,7 +18,7 @@
 
 int sockfd, numbytes, rv;
 struct addrinfo hints, *servinfo, *p;
-char buf[MAXBUFLENGTH];
+char buf[MAXBUFLENGTH], data;
 struct sockaddr_storage their_addr;
 socklen_t addr_len;
 char s[INET6_ADDRSTRLEN];
@@ -30,6 +30,38 @@ void *get_in_addr(struct sockaddr *sa) {
 
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
+
+void extract(char *packet, char *data) {
+    *data = *packet;
+};
+
+void deliver_data(char *data) {
+    printf("listener: packet contains \"%c\"\n", *data);
+}
+
+int rdt_recv() {
+    numbytes = recvfrom(sockfd, buf, MAXBUFLENGTH-1, 0, 
+                (struct sockaddr*) &their_addr, &addr_len);
+
+    if (numbytes == -1) {
+        perror("recv");
+        exit(1);
+    }
+
+    printf("listener: got packet from %s\n", 
+        inet_ntop(their_addr.ss_family, 
+            get_in_addr((struct sockaddr *)&their_addr), 
+            s, sizeof s));
+
+    printf("listener: packet is %d bytes long\n", numbytes);
+    buf[numbytes] = '\0';
+
+    extract(&buf[0], &data);
+
+    deliver_data(&data);
+
+    return numbytes;
+};
 
 int main(int argc, char **argv)
 {
@@ -69,21 +101,8 @@ int main(int argc, char **argv)
 
     addr_len = sizeof their_addr;
 
-    if ((numbytes = recvfrom(sockfd, buf, MAXBUFLENGTH-1, 0,
-        (struct sockaddr*) &their_addr, &addr_len)) == -1) {
-        perror("recv");
-        exit(1);
-    }
-
-    printf("listener: got packet from %s\n", 
-        inet_ntop(their_addr.ss_family, 
-            get_in_addr((struct sockaddr *)&their_addr), 
-            s, sizeof s));
-
-    printf("listener: packet is %d bytes long\n", numbytes);
-    buf[numbytes] = '\0';
-
-    printf("listener: packet contains \"%s\"\n", buf);
+    /* greek tragedy - all the action happens offstage */
+    while (rdt_recv() > 0);
 
     close(sockfd);
 
