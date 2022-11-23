@@ -113,7 +113,7 @@ debug: $(TARGET).cpp $(OBJS)
 # 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
 clean:
-	-rm -f $(TARGET) $(OBJS) $(DEPENDENCIES) *Test make.dep
+	-rm -f $(TARGET) $(OBJS) $(DEPENDENCIES) *Test sender receiver make.dep
 
 
 make.dep: $(DEPENDENCIES)
