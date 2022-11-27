@@ -103,10 +103,10 @@ DEPENDENCIES = $(OBJS:.o=.d)
 # 
 all: sender receiver
 
-$(TARGET): $(TARGET).cpp $(OBJS)
+$(TARGET): $(TARGET).c $(OBJS)
 	$(LINK) $(FLAGS) -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
-debug: $(TARGET).cpp $(OBJS)
+debug: $(TARGET).c $(OBJS)
 	$(LINK) $(FLAGS) -DDEBUG -o $(TARGET) $(TARGET).cpp $(OBJS) $(LFLAGS)
 
 # $(TARGET).cpp: $(OBJS)

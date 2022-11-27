@@ -2,3 +2,4 @@
 
 .vscode
 .gdb*
+*.out
